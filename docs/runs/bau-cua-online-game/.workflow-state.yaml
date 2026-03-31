@@ -1,0 +1,306 @@
+flow_1:
+  current_step: 12
+  step_name: roadmap-to-delivery
+  status: complete
+  idea_slug: bau-cua-online-game
+  product_slug: bau-cua-online-game
+  artifacts:
+    - docs/product/bau-cua-online-game/user-stories.md
+    - docs/product/bau-cua-online-game/checklist.md
+  tech_stack_activated: true
+  user_stories_count: 20
+  selected_user_story: US-0.0.1
+  git_branch: feature/bau-cua-online-game-us-0.0.1
+  flow_1_complete: true
+  handoff_to_flow_2: /work-intake
+  updated_at: 2026-03-30T07:54:11.7752587Z
+
+meta:
+  dev_mode: standard
+  base_branch: main
+  base_branch_by_root:
+    BauCuaBE: main
+    BauCuaFE: main
+  pr_strategy: linked-prs-per-repo
+  linked_prs:
+    BauCuaBE: true
+    BauCuaFE: true
+  user_story_id: US-0.0.1
+  product_slug: bau-cua-online-game
+  checklist_path: docs/product/bau-cua-online-game/checklist.md
+  local_baseline_requires_docker: true
+
+phases:
+  phase_0_analysis:
+    status: approved
+    started_at: 2026-03-30T08:11:07.6176793Z
+    completed_at: 2026-03-30T08:12:51.0284333Z
+    approved_at: 2026-03-30T08:19:42.5421300Z
+    sub_phases:
+      request_analysis: complete
+      solution_research: complete
+      solution_design: complete
+      diagrams: complete
+    artifacts:
+      - path: 00_analysis/work-description.md
+        status: reviewed-and-ready
+      - path: 00_analysis/work-updates.md
+        status: updated
+      - path: 00_analysis/solution-design.md
+        status: complete
+      - path: 00_analysis/diagrams/flow-overview.md
+        status: complete
+      - path: 00_analysis/diagrams/sequence-main.md
+        status: complete
+      - path: 00_analysis/diagrams/architecture.md
+        status: complete
+      - path: 00_analysis/decision-log.md
+        status: complete
+    decisions:
+      - id: D-001
+        decision: Adopt Docker-first local baseline for both roots
+        rationale: Mandatory Docker requirement and reproducible onboarding goals
+      - id: D-002
+        decision: Deliver with 2 linked PRs (one per repo)
+        rationale: User-confirmed process for ownership and review traceability
+      - id: D-003
+        decision: Enforce startup order BauCuaBE -> BauCuaFE
+        rationale: FE is API-consumer and depends on BE readiness
+      - id: D-004
+        decision: Keep scope to startup baseline and docs only
+        rationale: Prevent scope creep beyond US-0.0.1
+  phase_1_spec:
+    status: approved
+    started_at: 2026-03-30T08:19:42.5421300Z
+    completed_at: 2026-03-30T08:19:42.7603144Z
+    reviewed_at: 2026-03-30T08:30:29.2679291Z
+    approved_at: 2026-03-30T08:32:52.0497370Z
+    review:
+      verdict: PASS
+      critical_issues: 0
+      major_issues: 0
+      minor_issues: 2
+    requirements_count:
+      functional: 6
+      non_functional: 5
+    artifacts:
+      - path: 01_spec/spec.md
+        status: complete
+      - path: 01_spec/cross-root-impact.md
+        status: complete
+      - path: 01_spec/spec-review.md
+        status: complete
+  phase_2_tasks:
+    status: approved
+    started_at: 2026-03-30T08:32:52.0497370Z
+    completed_at: 2026-03-30T08:32:52.2570218Z
+    approved_at: 2026-03-30T15:24:08.2362222Z
+    tasks_summary:
+      total: 12
+      by_root:
+        BauCuaBE: 9
+        BauCuaFE: 3
+    test_plan:
+      included: true
+      test_cases_count: 14
+      coverage_target: 80%
+    artifacts:
+      - path: 02_tasks/tasks.md
+        status: complete
+      - path: 02_tasks/task-review.md
+        status: complete
+  phase_3_impl:
+    tasks:
+      - id: T-001
+        title: Define backend env contract
+        root: BauCuaBE
+        status: completed
+        implemented_at: 2026-03-31T03:15:10.5756359Z
+        reviewed_by: user-manual
+        completed_at: 2026-03-31T03:21:39.6980492Z
+        depends_on: []
+        test_cases: [TC-001]
+      - id: T-002
+        title: Add backend Docker runtime baseline
+        root: BauCuaBE
+        status: completed
+        implemented_at: 2026-03-31T03:25:27.0547697Z
+        reviewed_at: 2026-03-31T03:47:33.5067777Z
+        review_verdict: approved
+        depends_on: [T-001]
+        test_cases: [TC-002]
+      - id: T-003
+        title: Add backend readiness contract and checks
+        root: BauCuaBE
+        status: completed
+        implemented_at: 2026-03-31T03:25:27.0547697Z
+        reviewed_at: 2026-03-31T03:47:33.5067777Z
+        review_verdict: approved
+        issues_count:
+          critical: 0
+          major: 1
+          minor: 0
+        fix_plan:
+          created_at: 2026-03-31T03:40:32.4720104Z
+          issues_count: 1
+          approved: true
+          batches_applied: [1]
+          last_batch_at: 2026-03-31T03:43:40.7635146Z
+        current_fix_batch: 1
+        fixes_reviewed_at: 2026-03-31T03:47:33.5067777Z
+        depends_on: [T-002]
+        test_cases: [TC-003]
+      - id: T-004
+        title: Add backend troubleshooting matrix
+        root: BauCuaBE
+        status: completed
+        implemented_at: 2026-03-31T03:25:27.0547697Z
+        reviewed_at: 2026-03-31T03:47:33.5067777Z
+        review_verdict: approved
+        depends_on: [T-002]
+        test_cases: [TC-004, TC-014]
+      - id: T-005
+        title: Define frontend env contract
+        root: BauCuaFE
+        status: completed
+        implemented_at: 2026-03-31T03:25:27.0547697Z
+        reviewed_at: 2026-03-31T03:47:33.5067777Z
+        review_verdict: approved
+        depends_on: [T-001]
+        test_cases: [TC-005]
+      - id: T-006
+        title: Add frontend Docker runtime baseline
+        root: BauCuaFE
+        status: completed
+        implemented_at: 2026-03-31T03:25:27.0547697Z
+        reviewed_at: 2026-03-31T03:47:33.5067777Z
+        review_verdict: approved
+        depends_on: [T-002, T-005]
+        test_cases: [TC-006]
+      - id: T-007
+        title: Add FE to BE connectivity contract
+        root: BauCuaFE
+        status: completed
+        implemented_at: 2026-03-31T03:25:27.0547697Z
+        reviewed_at: 2026-03-31T03:47:33.5067777Z
+        review_verdict: approved
+        depends_on: [T-003, T-006]
+        test_cases: [TC-007]
+      - id: T-008
+        title: Write integrated startup guide
+        root: BauCuaBE
+        status: completed
+        implemented_at: 2026-03-31T03:25:27.0547697Z
+        reviewed_at: 2026-03-31T03:47:33.5067777Z
+        review_verdict: approved
+        issues_count:
+          critical: 0
+          major: 1
+          minor: 0
+        fix_plan:
+          created_at: 2026-03-31T03:40:32.4720104Z
+          issues_count: 1
+          approved: true
+          batches_applied: [1]
+          last_batch_at: 2026-03-31T03:43:40.7635146Z
+        current_fix_batch: 1
+        fixes_reviewed_at: 2026-03-31T03:47:33.5067777Z
+        depends_on: [T-004, T-007]
+        test_cases: [TC-008]
+      - id: T-009
+        title: Create baseline verification checklist
+        root: BauCuaBE
+        status: completed
+        implemented_at: 2026-03-31T03:25:27.0547697Z
+        reviewed_at: 2026-03-31T03:47:33.5067777Z
+        review_verdict: approved
+        depends_on: [T-008]
+        test_cases: [TC-009, TC-013]
+      - id: T-010
+        title: Add linked PR sync checklist
+        root: BauCuaBE
+        status: completed
+        implemented_at: 2026-03-31T03:25:27.0547697Z
+        reviewed_at: 2026-03-31T03:47:33.5067777Z
+        review_verdict: approved
+        depends_on: [T-009]
+        test_cases: [TC-010]
+      - id: T-011
+        title: Add compatibility and platform notes
+        root: BauCuaBE
+        status: completed
+        implemented_at: 2026-03-31T03:25:27.0547697Z
+        reviewed_at: 2026-03-31T03:47:33.5067777Z
+        review_verdict: approved
+        depends_on: [T-009]
+        test_cases: [TC-011]
+      - id: T-012
+        title: Add requirements traceability sheet
+        root: BauCuaBE
+        status: completed
+        implemented_at: 2026-03-31T03:25:27.0547697Z
+        reviewed_at: 2026-03-31T03:47:33.5067777Z
+        review_verdict: approved
+        depends_on: [T-010, T-011]
+        test_cases: [TC-012]
+  phase_4_tests:
+    status: approved
+    started_at: 2026-03-31T03:52:15.1698069Z
+    verified_at: 2026-03-31T04:00:00.0000000Z
+    current_batch: 1
+    total_batches_estimate: 1
+    batches:
+      batch_1:
+        status: verified-passed
+        tests_written: 1
+        tests_verified: 1
+        files:
+          - 04_tests/scripts/batch-1-contract-tests.ps1
+        coverage:
+          total_checks: 13
+          passed: 13
+          failed: 0
+          percent: 100.00
+        verdict: pass
+        verified_by: test-verify-prompt
+        test_cases_passed: 13
+        requirements_covered: 11/11
+
+  phase_5_done:
+    status: complete
+    started_at: 2026-03-31T04:00:00.0000000Z
+    completed_at: 2026-03-31T04:10:00.0000000Z
+    dod_results:
+      total_criteria: 18
+      passed: 18
+      failed: 0
+      categories:
+        requirements: 3/3
+        code_quality: 3/3
+        testing: 3/3
+        documentation: 3/3
+        build: 3/3
+        multi_root: 3/3
+    verdict: done
+    product_checklist_updated: true
+    product_checklist_path: docs/product/bau-cua-online-game/checklist.md
+    user_story_status_change: "IN_PROGRESS → DONE"
+    unlocked_user_stories: [US-0.0.2]
+
+status:
+  current_phase: 5
+  phase_name: done
+  phase_status: complete
+  current_task: phase-5-complete
+  last_action: All DoD criteria verified - feature ready for merge
+  next_action: Commit, push, create linked PRs
+  batch_mode: false
+  batch_tasks: [T-001, T-002, T-003, T-004, T-005, T-006, T-007, T-008, T-009, T-010, T-011, T-012]
+  batch_progress: 12/12
+  blockers: []
+  review_verdict: APPROVED
+  review_confidence: FINAL
+  review_timestamp: 2026-03-31T04:10:00.0000000Z
+  overall_status: COMPLETE
+  workflow_verdict: DONE
+  ready_for_merge: true

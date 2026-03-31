@@ -1,0 +1,64 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: baucua-be-app
+    working_dir: /app
+    volumes:
+      - ./:/app
+    environment:
+      APP_ENV: ${APP_ENV:-local}
+      APP_URL: ${APP_URL:-http://localhost:8000}
+      DB_CONNECTION: ${DB_CONNECTION:-pgsql}
+      DB_HOST: ${DB_HOST:-postgres}
+      DB_PORT: ${DB_PORT:-5432}
+      DB_DATABASE: ${DB_DATABASE:-baucua_local}
+      DB_USERNAME: ${DB_USERNAME:-baucua}
+      DB_PASSWORD: ${DB_PASSWORD:-change_me}
+      REDIS_HOST: ${REDIS_HOST:-redis}
+      REDIS_PORT: ${REDIS_PORT:-6379}
+    ports:
+      - '8000:8000'
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    command: >
+      sh -c "if [ -f artisan ]; then
+      php artisan serve --host=0.0.0.0 --port=8000;
+      else
+      php -S 0.0.0.0:8000 -t .;
+      fi"
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: baucua-be-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_DATABASE:-baucua_local}
+      POSTGRES_USER: ${DB_USERNAME:-baucua}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-change_me}
+    ports:
+      - '5432:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ${DB_USERNAME:-baucua} -d ${DB_DATABASE:-baucua_local}']
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  redis:
+    image: redis:7-alpine
+    container_name: baucua-be-redis
+    restart: unless-stopped
+    ports:
+      - '6379:6379'
+    volumes:
+      - redisdata:/data
+
+volumes:
+  pgdata:
+  redisdata:
